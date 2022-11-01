@@ -1,28 +1,18 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { createContext, useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
 import MyAppBar from "./components/MyAppBar";
-import { darkTheme, lightTheme } from "./themes";
-
-export const ThemeContext = createContext({
-  dark: false,
-  setDark: (dark) => dark,
-});
+import Bin2Dec from "./projects/beginner/Bin2Dec";
+import Provider from "./Provider";
 
 const App = () => {
-  const [dark, setDark] = useState(false);
-
-  useEffect(() => {
-    const savedDark = window.localStorage.getItem("appsTheme");
-    setDark(Boolean(Number(savedDark)));
-  }, []);
-
   return (
-    <ThemeProvider theme={dark ? darkTheme : lightTheme}>
-      <CssBaseline />
-      <ThemeContext.Provider value={{ dark, setDark }}>
-        <MyAppBar dark={dark} setDark={setDark} />
-      </ThemeContext.Provider>
-    </ThemeProvider>
+    <Provider>
+      <MyAppBar />
+      <Routes>
+        <Route path="/bin2Dec" element={<Bin2Dec />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Provider>
   );
 };
 

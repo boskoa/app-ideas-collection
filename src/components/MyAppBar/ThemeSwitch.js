@@ -1,11 +1,14 @@
 import { styled, Switch } from "@mui/material";
 import { useContext } from "react";
-import { ThemeContext } from "../../App";
+import { DarkContext, SetDarkContext } from "../../Provider";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
   padding: 7,
+  marginTop: 3,
+  marginBottom: 3,
+  marginLeft: 3,
   "& .MuiSwitch-switchBase": {
     margin: 1,
     padding: 0,
@@ -50,13 +53,14 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const ThemeSwitch = () => {
-  const { dark, setDark } = useContext(ThemeContext);
+  const dark = useContext(DarkContext);
+  const setDark = useContext(SetDarkContext);
 
   const handleDark = () => {
     setDark(!dark);
     window.localStorage.setItem("appsTheme", JSON.stringify(Number(!dark)));
   };
-
+  console.log("rendering Switch");
   return <MaterialUISwitch checked={dark} onClick={handleDark} />;
 };
 
