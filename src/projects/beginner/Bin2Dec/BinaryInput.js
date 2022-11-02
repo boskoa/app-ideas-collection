@@ -27,15 +27,11 @@ const BinaryInput = () => {
     }
   };
 
-  console.log("DECIMAL", decimal);
-
-  console.log("BINARY", binary), setError;
-
   return (
     <Stack sx={{ mt: 2 }} alignItems="center">
       <Box
         sx={{
-          width: "90%",
+          width: "100%",
           maxWidth: "20rem",
         }}
         overflow="hidden"
@@ -56,6 +52,8 @@ const BinaryInput = () => {
           sx={{ mt: 2 }}
           disabled={Boolean(error)}
           onClick={handleConvert}
+          variant="contained"
+          color="error"
         >
           Convert
         </Button>
