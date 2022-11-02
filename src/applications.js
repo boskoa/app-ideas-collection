@@ -6,4 +6,11 @@ export const apps = [
     id: 0,
     level: "beginner",
   },
+  {
+    name: "Border-radius previewer",
+    description:
+      "The border-radius property can have multiple values changed. Preview how the shape looks while changing these values.",
+    id: 1,
+    level: "beginner",
+  },
 ];

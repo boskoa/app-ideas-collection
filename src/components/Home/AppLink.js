@@ -7,7 +7,8 @@ const StyledLink = styled(Link)(() => ({
 }));
 
 const AppLink = ({ name }) => {
-  return <StyledLink to={name}>Open app</StyledLink>;
+  const appLink = name.replace(" ", "-");
+  return <StyledLink to={appLink}>Open app</StyledLink>;
 };
 
 export default AppLink;

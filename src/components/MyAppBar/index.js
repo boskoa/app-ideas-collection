@@ -32,7 +32,7 @@ const MyStack = styled(Stack)(({ theme }) => ({
 
 const MyAppBar = () => {
   const dark = useContext(DarkContext);
-  console.log("rendering MyAppBar");
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

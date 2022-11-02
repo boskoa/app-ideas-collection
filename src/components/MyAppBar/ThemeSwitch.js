@@ -60,7 +60,7 @@ const ThemeSwitch = () => {
     setDark(!dark);
     window.localStorage.setItem("appsTheme", JSON.stringify(Number(!dark)));
   };
-  console.log("rendering Switch");
+
   return <MaterialUISwitch checked={dark} onClick={handleDark} />;
 };
 

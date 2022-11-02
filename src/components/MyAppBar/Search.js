@@ -55,7 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Search = () => {
   const searchFilter = useContext(SearchContext);
   const setSearchFilter = useContext(SetSearchContext);
-  console.log("rendering search");
+
   return (
     <Box width="100%">
       <MySearch>
