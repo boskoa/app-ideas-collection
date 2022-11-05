@@ -1,18 +1,30 @@
-import { Box, Stack } from "@mui/material";
+import { Box, Slide, Typography } from "@mui/material";
 import { useState } from "react";
-import Shape from "./Shape";
+import CopyBox from "./CopyBox";
+import InputContainer from "./InputContainer";
+import SimpleSlideContainer from "./SimpleSlideContainer";
+import SlideContainer from "./SlideContainer";
 
 const boxStyle = {
   minWidth: "300px",
   minHeight: "300px",
-  width: "38vw",
-  height: "38vw",
+  width: "35vw",
+  height: "35vw",
   backgroundColor: "warning.main",
   mt: 2,
   borderRadius: 2,
 };
 
-const ShapeContainer = () => {
+const slideStyle = {
+  width: "350px",
+  height: "350px",
+  backgroundColor: "warning.main",
+  mt: 2,
+  borderRadius: 2,
+  position: "relative",
+};
+
+const ShapeContainer = ({ variant }) => {
   const [ulu, setUlu] = useState(1);
   const [uru, setUru] = useState(1);
   const [lll, setLll] = useState(1);
@@ -21,113 +33,105 @@ const ShapeContainer = () => {
   const [llu, setLlu] = useState(lrl);
   const [url, setUrl] = useState(uru);
   const [lru, setLru] = useState(lll);
+  const [show, setShow] = useState(false);
+
+  const copyStyle = {
+    minWidth: "300px",
+    width: variant === "slide" ? "350px" : "35vw",
+    backgroundColor: "warning.main",
+    mt: 2,
+    borderRadius: 2,
+    p: 1,
+  };
+
+  const borderRadius = `${ulu || 0}% ${uru || 0}% ${lrl || 0}% ${lll || 0}% / ${
+    ull || 0
+  }% ${url || 0}% ${lru || 0}% ${llu || 0}%`;
 
   return (
-    <Box sx={boxStyle}>
-      <Stack
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ height: "100%", width: "100%" }}
-      >
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-end"
-          sx={{ width: "77%", height: "15%" }}
+    <Box sx={variant === "slide" ? slideStyle : boxStyle}>
+      {variant === "input" && (
+        <InputContainer
+          setUlu={setUlu}
+          setUru={setUru}
+          setLll={setLll}
+          setLrl={setLrl}
+          setUll={setUll}
+          setLlu={setLlu}
+          setUrl={setUrl}
+          setLru={setLru}
+          borderRadius={borderRadius}
+          ulu={ulu}
+          uru={uru}
+          lll={lll}
+          lrl={lll}
+          ull={ull}
+          llu={llu}
+          url={url}
+          lru={lru}
+        />
+      )}
+      {variant === "slide" && (
+        <SlideContainer
+          setUlu={setUlu}
+          setUru={setUru}
+          setLll={setLll}
+          setLrl={setLrl}
+          setUll={setUll}
+          setLlu={setLlu}
+          setUrl={setUrl}
+          setLru={setLru}
+          borderRadius={borderRadius}
+          ulu={ulu}
+          uru={uru}
+          lll={lll}
+          lrl={lrl}
+          ull={ull}
+          llu={llu}
+          url={url}
+          lru={lru}
+        />
+      )}
+      {variant === "simple" && (
+        <SimpleSlideContainer
+          setUlu={setUlu}
+          setUru={setUru}
+          setLll={setLll}
+          setLrl={setLrl}
+          setUll={setUll}
+          setLlu={setLlu}
+          setUrl={setUrl}
+          setLru={setLru}
+          borderRadius={borderRadius}
+          ulu={ulu}
+          uru={uru}
+          lll={lll}
+          lrl={lrl}
+          ull={ull}
+          llu={llu}
+          url={url}
+          lru={lru}
+        />
+      )}
+      <CopyBox
+        copyStyle={copyStyle}
+        borderRadius={borderRadius}
+        setShow={setShow}
+      />
+      <Slide direction="right" in={show} mountOnEnter unmountOnExit>
+        <Box
+          sx={{
+            minWidth: "300px",
+            width: variant === "slide" ? "350px" : "35vw",
+            backgroundColor: "warning.main",
+            mt: 2,
+            borderRadius: 2,
+            p: 1,
+          }}
         >
-          <input
-            name="ulu"
-            value={ulu}
-            onChange={(e) => setUlu(e.target.value)}
-            size="1"
-            style={{ marginBottom: "2px" }}
-          />
-          <input
-            name="uru"
-            value={uru}
-            onChange={(e) => setUru(e.target.value)}
-            size="1"
-            style={{ marginBottom: "2px" }}
-          />
-        </Stack>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          sx={{ width: "100%", flexGrow: 3 }}
-        >
-          <Stack
-            justifyContent="space-between"
-            alignItems="flex-end"
-            sx={{ width: "15%" }}
-          >
-            <input
-              name="ull"
-              value={ull}
-              onChange={(e) => setUll(e.target.value)}
-              size="1"
-              style={{ marginRight: "2px" }}
-            />
-            <input
-              name="llu"
-              value={llu}
-              onChange={(e) => setLlu(e.target.value)}
-              size="1"
-              style={{ marginRight: "2px" }}
-            />
-          </Stack>
-          <Shape
-            ulu={ulu}
-            uru={uru}
-            ull={ull}
-            llu={llu}
-            url={url}
-            lru={lru}
-            lll={lll}
-            lrl={lrl}
-          />
-          <Stack
-            justifyContent="space-between"
-            alignItems="flex-start"
-            sx={{ width: "15%" }}
-          >
-            <input
-              name="url"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              size="1"
-              style={{ marginLeft: "2px" }}
-            />
-            <input
-              name="lru"
-              value={lru}
-              onChange={(e) => setLru(e.target.value)}
-              size="1"
-              style={{ marginLeft: "2px" }}
-            />
-          </Stack>
-        </Stack>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
-          sx={{ width: "77%", height: "15%" }}
-        >
-          <input
-            name="lll"
-            value={lll}
-            onChange={(e) => setLll(e.target.value)}
-            size="1"
-            style={{ marginTop: "2px" }}
-          />
-          <input
-            name="lrl"
-            value={lrl}
-            onChange={(e) => setLrl(e.target.value)}
-            size="1"
-            style={{ marginTop: "2px" }}
-          />
-        </Stack>
-      </Stack>
+          <Typography align="center">Copied to clipboard</Typography>
+        </Box>
+      </Slide>
     </Box>
   );
 };
