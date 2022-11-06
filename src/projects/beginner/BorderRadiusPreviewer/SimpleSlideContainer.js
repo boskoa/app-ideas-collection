@@ -1,5 +1,10 @@
-import { Slider, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import Shape from "./Shape";
+import { useEffect } from "react";
+import SimpleSliderA from "./SimpleSliderA";
+import SimpleSliderB from "./SimpleSliderB";
+import SimpleSliderC from "./SimpleSliderC";
+import SimpleSliderD from "./SimpleSliderD";
 
 const SimpleSlideContainer = ({
   setUlu,
@@ -12,116 +17,36 @@ const SimpleSlideContainer = ({
   setLru,
   borderRadius,
   ulu,
-  uru,
-  lll,
   lrl,
-  ull,
   llu,
   url,
-  lru,
 }) => {
+  useEffect(() => {
+    setUru(100 - ulu);
+    setLll(100 - lrl);
+    setUll(100 - llu);
+    setLru(100 - url);
+  }, []);
+
   return (
     <Stack
+      justifyContent="center"
       alignItems="center"
-      justifyContent="space-between"
       sx={{ height: "100%", width: "100%" }}
     >
       <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="flex-end"
-        sx={{ width: "77%", height: "15%", position: "relative" }}
+        sx={{
+          width: "90%",
+          height: "90%",
+          position: "relative",
+          border: "1px dotted black",
+        }}
       >
-        <Slider
-          value={ulu}
-          size="small"
-          sx={{ position: "absolute", top: 0, right: 18 }}
-          color="secondary"
-          onChange={(e) => setUlu(e.target.value)}
-        />
-        <Slider
-          value={Math.abs(uru - 100)}
-          size="small"
-          sx={{ position: "absolute", left: 1, bottom: 5 }}
-          color="success"
-          track="inverted"
-          onChange={(e) => setUru(Math.abs(e.target.value - 100))}
-        />
-      </Stack>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        sx={{ width: "100%", flexGrow: 3, position: "relative" }}
-      >
-        <Stack
-          justifyContent="space-between"
-          alignItems="flex-end"
-          sx={{ width: "15%" }}
-        >
-          <Slider
-            value={llu}
-            orientation="vertical"
-            size="small"
-            color="error"
-            sx={{ position: "absolute", left: 10, top: 4 }}
-            onChange={(e) => setLlu(e.target.value)}
-          />
-          <Slider
-            value={Math.abs(ull - 100)}
-            orientation="vertical"
-            size="small"
-            sx={{ position: "absolute", left: -5, top: -15 }}
-            color="secondary"
-            track="inverted"
-            onChange={(e) => setUll(Math.abs(e.target.value - 100))}
-          />
-        </Stack>
+        <SimpleSliderA setA={setUlu} setB={setUru} />
+        <SimpleSliderC setA={setUll} setB={setLlu} />
         <Shape borderRadius={borderRadius} />
-        <Stack
-          justifyContent="space-between"
-          alignItems="flex-start"
-          sx={{ width: "15%", position: "relative" }}
-        >
-          <Slider
-            value={Math.abs(url - 100)}
-            orientation="vertical"
-            size="small"
-            sx={{ position: "absolute", right: 10, bottom: 3 }}
-            color="success"
-            track="inverted"
-            onChange={(e) => setUrl(Math.abs(e.target.value - 100))}
-          />
-          <Slider
-            value={lru}
-            orientation="vertical"
-            size="small"
-            sx={{ position: "absolute", left: 18, top: 17 }}
-            color="primary"
-            onChange={(e) => setLru(e.target.value)}
-          />
-        </Stack>
-      </Stack>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="flex-start"
-        sx={{ width: "77%", height: "15%", position: "relative" }}
-      >
-        <Slider
-          value={Math.abs(lrl - 100)}
-          size="small"
-          sx={{ position: "absolute", bottom: 1, left: 15 }}
-          color="primary"
-          track="inverted"
-          onChange={(e) => setLrl(Math.abs(e.target.value - 100))}
-        />
-        <Slider
-          value={lll}
-          size="small"
-          sx={{ position: "absolute", top: 5, right: 3 }}
-          color="error"
-          onChange={(e) => setLll(e.target.value)}
-        />
+        <SimpleSliderD setA={setUrl} setB={setLru} />
+        <SimpleSliderB setA={setLrl} setB={setLll} />
       </Stack>
     </Stack>
   );

@@ -36,7 +36,7 @@ const SlideContainer = ({
           value={ulu}
           size="small"
           sx={{ position: "absolute", top: 0, right: 18 }}
-          color="secondary"
+          color="info"
           onChange={(e) => setUlu(e.target.value)}
         />
         <Slider
@@ -71,7 +71,7 @@ const SlideContainer = ({
             orientation="vertical"
             size="small"
             sx={{ position: "absolute", left: -5, top: -15 }}
-            color="secondary"
+            color="info"
             track="inverted"
             onChange={(e) => setUll(Math.abs(e.target.value - 100))}
           />

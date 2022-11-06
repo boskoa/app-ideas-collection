@@ -25,14 +25,14 @@ const slideStyle = {
 };
 
 const ShapeContainer = ({ variant }) => {
-  const [ulu, setUlu] = useState(1);
-  const [uru, setUru] = useState(1);
-  const [lll, setLll] = useState(1);
-  const [lrl, setLrl] = useState(1);
-  const [ull, setUll] = useState(ulu);
-  const [llu, setLlu] = useState(lrl);
-  const [url, setUrl] = useState(uru);
-  const [lru, setLru] = useState(lll);
+  const [ulu, setUlu] = useState(0);
+  const [uru, setUru] = useState(0);
+  const [lll, setLll] = useState(0);
+  const [lrl, setLrl] = useState(0);
+  const [ull, setUll] = useState(0);
+  const [llu, setLlu] = useState(0);
+  const [url, setUrl] = useState(0);
+  const [lru, setLru] = useState(0);
   const [show, setShow] = useState(false);
 
   const copyStyle = {
@@ -104,13 +104,9 @@ const ShapeContainer = ({ variant }) => {
           setLru={setLru}
           borderRadius={borderRadius}
           ulu={ulu}
-          uru={uru}
-          lll={lll}
           lrl={lrl}
-          ull={ull}
           llu={llu}
           url={url}
-          lru={lru}
         />
       )}
       <CopyBox

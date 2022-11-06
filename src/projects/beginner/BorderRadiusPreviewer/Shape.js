@@ -7,7 +7,7 @@ const Shape = ({ borderRadius }) => {
     backgroundColor: "error.main",
     borderRadius,
   };
-  console.log("rendering shape", boxStyle.borderRadius);
+
   return <Box sx={boxStyle}></Box>;
 };
 
