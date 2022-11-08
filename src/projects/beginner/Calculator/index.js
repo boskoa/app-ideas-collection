@@ -1,13 +1,14 @@
 /* eslint-disable indent */
 import styled from "@emotion/styled";
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { alpha, Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { useCallback, useEffect, useState } from "react";
 import { apps } from "../../../applications";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.calc.light,
   width: "310px",
   margin: 20,
+  border: `2px solid ${alpha(theme.palette.calc.main, 0.5)}`,
 }));
 
 const Calculator = () => {
@@ -26,7 +27,6 @@ const Calculator = () => {
       if (prev.includes(".")) {
         const arr = prev.split(".");
         point++;
-        console.log("DECPLACES", decPlaces);
         if (arr[1].length > 2) {
           return prev;
         }
@@ -45,10 +45,8 @@ const Calculator = () => {
   const calculate = () => {
     switch (operation) {
       case "+":
-        console.log("PLOS");
         return (Number(second) + Number(first)).toFixed(decPlaces);
       case "-":
-        console.log("MINUS", first, second);
         return (Number(second) - Number(first)).toFixed(decPlaces);
       case "×":
         return (Number(second) * Number(first)).toFixed(decPlaces);
@@ -64,10 +62,8 @@ const Calculator = () => {
     if (operation) {
       const result = calculate();
       setFirst(result);
-      console.log("FIRST", first, op, second);
       setSecond(result);
       setOperation(op);
-      console.log("FIRST AGAIN", first, second);
     } else {
       setSecond(first);
       setOperation;
@@ -93,15 +89,7 @@ const Calculator = () => {
   };
 
   const handlePrefix = () => {
-    if (first === "") {
-      return null;
-    }
     setPrefix((prev) => !prev);
-    if (prefix) {
-      setFirst((prev) => "-" + prev);
-    } else {
-      setFirst((prev) => prev.substring(1));
-    }
   };
 
   const handlePoint = () => {
@@ -114,14 +102,95 @@ const Calculator = () => {
   const app = apps[2];
 
   useEffect(() => {
+    if (prefix) {
+      setFirst((prev) => "-" + prev);
+    } else {
+      setFirst((prev) => prev.substring(1));
+    }
+  }, [prefix]);
+
+  useEffect(() => {
     if (point) {
       const arr = first.split(".");
       if (arr[1]?.length > decPlaces) {
         setDecPlaces(arr[1].length);
       }
     }
-    console.log("DECIMALE", decPlaces);
   }, [first]);
+
+  const handleKeys = useCallback((e) => {
+    switch (e.key) {
+      case "0":
+        setFirst((prev) =>
+          prev === "0" || prev === "" ? "" : enterNum(prev, "0")
+        );
+        break;
+      case "1":
+        setFirst((prev) => enterNum(prev, "1"));
+        break;
+      case "2":
+        setFirst((prev) => enterNum(prev, "2"));
+        break;
+      case "3":
+        setFirst((prev) => enterNum(prev, "3"));
+        break;
+      case "4":
+        setFirst((prev) => enterNum(prev, "4"));
+        break;
+      case "5":
+        setFirst((prev) => enterNum(prev, "5"));
+        break;
+      case "6":
+        setFirst((prev) => enterNum(prev, "6"));
+        break;
+      case "7":
+        setFirst((prev) => enterNum(prev, "7"));
+        break;
+      case "8":
+        setFirst((prev) => enterNum(prev, "8"));
+        break;
+      case "9":
+        setFirst((prev) => enterNum(prev, "9"));
+        break;
+      case "Backspace":
+        setFirst("");
+        break;
+      case "Delete":
+        handleClear();
+        break;
+      case "p":
+        setPower((prev) => !prev);
+        break;
+      case "/":
+        handleOperation("÷");
+        break;
+      case "*":
+        handleOperation("×");
+        break;
+      case "+":
+        handleOperation("+");
+        break;
+      case "-":
+        handleOperation("-");
+        break;
+      case ".":
+        handlePoint();
+        break;
+      case "=":
+        handleEquals();
+        break;
+      default:
+        return null;
+    }
+  });
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeys);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeys);
+    };
+  }, [handleKeys]);
 
   return (
     <Box
@@ -140,7 +209,10 @@ const Calculator = () => {
         <Typography align="center" variant="h4" gutterBottom>
           {app.name}
         </Typography>
-        <StyledPaper sx={{ boxShadow: power && "0px 0px 20px 5px #2cfa1f" }}>
+        <StyledPaper
+          elevation={8}
+          sx={{ boxShadow: power && "0px 0px 20px 5px #2cfa1f" }}
+        >
           <Stack>
             <Box
               sx={{
