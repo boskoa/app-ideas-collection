@@ -4,6 +4,7 @@ import MyAppBar from "./components/MyAppBar";
 import Bin2Dec from "./projects/beginner/Bin2Dec";
 import BorderRadiusPreviewer from "./projects/beginner/BorderRadiusPreviewer";
 import Calculator from "./projects/beginner/Calculator";
+import ChristmasLights from "./projects/beginner/ChristmasLights";
 import Provider from "./Provider";
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
           element={<BorderRadiusPreviewer />}
         />
         <Route path="/calculator" element={<Calculator />} />
+        <Route path="/christmas-lights" element={<ChristmasLights />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </Provider>
