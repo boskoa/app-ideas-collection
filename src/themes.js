@@ -6,6 +6,14 @@ export const lightTheme = createTheme({
       fontFamily: "Chewy",
     },
   },
+  palette: {
+    calc: {
+      main: "#414141",
+      light: "#525252",
+      dark: "#313131",
+      contrastText: "#FFEFEF",
+    },
+  },
 });
 
 export const darkTheme = createTheme({
@@ -21,6 +29,12 @@ export const darkTheme = createTheme({
       light: "#42a5f5",
       dark: "#1565c0",
       contrastText: "#fff",
+    },
+    calc: {
+      main: "#414141",
+      light: "#525252",
+      dark: "#313131",
+      contrastText: "#FFEFEF",
     },
   },
 });

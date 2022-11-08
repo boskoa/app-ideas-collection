@@ -13,4 +13,11 @@ export const apps = [
     id: 1,
     level: "beginner",
   },
+  {
+    name: "Calculator",
+    description:
+      "In this problem you will create a calculator that supports basic arithmetic calculations on integers. The styling is up to you so use your imagination and get creative! You might also find it worth your time to experiment with the calculator app on your mobile device to better understand basic functionality and edge cases.",
+    id: 2,
+    level: "beginner",
+  },
 ];

@@ -10,8 +10,16 @@ import AppLink from "./AppLink";
 
 const AppCard = ({ app }) => {
   return (
-    <Card sx={{ maxWidth: 275, m: 2 }}>
-      <CardContent>
+    <Card
+      sx={{
+        maxWidth: 275,
+        m: 2,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <CardContent sx={{ flexGrow: 2 }}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Level: {app.level}
         </Typography>
