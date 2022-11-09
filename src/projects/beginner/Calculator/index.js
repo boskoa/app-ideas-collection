@@ -227,7 +227,16 @@ const Calculator = () => {
               }}
             >
               {power && (
-                <Typography align="right" sx={{ mr: 1, mt: 1, mb: 1 }}>
+                <Typography
+                  align="right"
+                  sx={{
+                    mr: 1,
+                    mt: 1,
+                    mb: 1,
+                    fontFamily: "'Press Start 2P'",
+                    textShadow: "0px 0px 10px",
+                  }}
+                >
                   {first || "0"}
                 </Typography>
               )}
