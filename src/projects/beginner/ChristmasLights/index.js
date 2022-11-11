@@ -1,8 +1,13 @@
 import {
   Box,
   Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   IconButton,
   Paper,
+  Radio,
+  RadioGroup,
   Slide,
   Stack,
   Switch,
@@ -13,6 +18,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useEffect, useState } from "react";
 import { apps } from "../../../applications";
 import Bulb from "./Bulb";
+import { useTheme } from "@emotion/react";
 
 const initialBulb = {
   id: 0,
@@ -29,15 +35,15 @@ const ChristmasLights = () => {
   const [checked, setChecked] = useState(false);
   const [settings, setSettings] = useState(false);
   const [intensity, setIntensity] = useState(30);
-  console.log(setTime, setQuantity);
+  const [program, setProgram] = useState("alternate");
+  const lightsOn = useTheme().palette.mode === "light";
+  console.log(lightsOn);
 
   const app = apps[3];
 
   const handleColor = (id, color) => {
     setBulbs((p) => p.map((b) => (b.id !== id ? b : { ...b, color: color })));
   };
-
-  console.log("NEWNEW", bulbs);
 
   useEffect(() => {
     setBulbs(
@@ -50,7 +56,6 @@ const ChristmasLights = () => {
   }, [quantity]);
 
   useEffect(() => {
-    console.log("NEWSETTINGS");
     setBulbs((p) =>
       p.map((b) => ({
         ...b,
@@ -64,19 +69,21 @@ const ChristmasLights = () => {
     <Box
       sx={{
         mt: "3%",
-        ml: "5%",
+        ml: "1%",
         mb: "3%",
-        mr: "5%",
+        mr: "1%",
         paddingTop: 1,
         paddingBottom: 1,
         minHeight: "70vh",
         borderRadius: 5,
         position: "relative",
+        backgroundColor: "lights.main",
+        color: "lights.contrastText",
       }}
     >
       <Stack sx={{ m: 2 }} alignItems="center">
         <IconButton
-          sx={{ position: "absolute", top: -10, right: -20 }}
+          sx={{ position: "absolute", top: 0, right: 0 }}
           onClick={() => setChecked(!checked)}
         >
           <SettingsIcon />
@@ -85,13 +92,13 @@ const ChristmasLights = () => {
           sx={{
             width: 150,
             position: "absolute",
-            top: 40,
-            right: -20,
+            top: 50,
+            right: 5,
             zIndex: 2000,
           }}
         >
           <Slide direction="left" in={checked} mountOnEnter unmountOnExit>
-            <Paper sx={{ p: 1 }}>
+            <Paper sx={{ p: 2 }}>
               <Stack spacing={1}>
                 <TextField
                   value={time / 1000}
@@ -99,6 +106,12 @@ const ChristmasLights = () => {
                   size="small"
                   type="number"
                   label="Set interval"
+                  InputProps={{
+                    inputProps: {
+                      max: 10,
+                      min: 1,
+                    },
+                  }}
                 />
                 <TextField
                   value={intensity / 10}
@@ -106,6 +119,12 @@ const ChristmasLights = () => {
                   size="small"
                   type="number"
                   label="Set intensity"
+                  InputProps={{
+                    inputProps: {
+                      max: 10,
+                      min: 1,
+                    },
+                  }}
                 />
                 <TextField
                   value={quantity}
@@ -115,11 +134,34 @@ const ChristmasLights = () => {
                   label="Set quantity"
                   InputProps={{
                     inputProps: {
-                      max: 35,
+                      max: 20,
                       min: 1,
                     },
                   }}
                 />
+                <FormControl>
+                  <FormLabel id="program-group-label">
+                    <Typography variant="body2">Choose program</Typography>
+                  </FormLabel>
+                  <RadioGroup
+                    value={program}
+                    onChange={(e) => setProgram(e.target.value)}
+                    name="radio-buttons-group"
+                  >
+                    <FormControlLabel
+                      value="alternate"
+                      control={<Radio size="small" />}
+                      label={
+                        <Typography variant="caption">alternate</Typography>
+                      }
+                    />
+                    <FormControlLabel
+                      value="iterate"
+                      control={<Radio size="small" />}
+                      label={<Typography variant="caption">iterate</Typography>}
+                    />
+                  </RadioGroup>
+                </FormControl>
                 <Button size="small" onClick={() => setSettings((p) => !p)}>
                   Set
                 </Button>
@@ -134,6 +176,7 @@ const ChristmasLights = () => {
           sx={{ textShadow: "0px 0px 20px" }}
         >
           {app.name}
+          {lightsOn && " (set the dark mode!)"}
         </Typography>
         <Stack
           direction="row"
@@ -151,6 +194,8 @@ const ChristmasLights = () => {
               color={p.color}
               intensity={p.intensity}
               handleColor={handleColor}
+              program={program}
+              quantity={quantity}
             />
           ))}
         </Stack>

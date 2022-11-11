@@ -19,8 +19,13 @@ const MyToolbar = styled(Toolbar, {
     ? theme.palette.success.dark
     : theme.palette.success.light,
   justifyContent: "space-between",
+  alignItems: "center",
   width: "100vw",
   flexWrap: "wrap-reverse",
+  paddingBottom: 0,
+  [theme.breakpoints.down(710)]: {
+    paddingBottom: 10,
+  },
 }));
 
 const MyStack = styled(Stack)(({ theme }) => ({

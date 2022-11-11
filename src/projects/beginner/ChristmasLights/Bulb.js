@@ -7,13 +7,16 @@ const Light = styled("div", {
     prop !== "on" &&
     prop !== "color" &&
     prop !== "power" &&
-    prop !== "intensity",
-})(({ theme, on, color, power, intensity }) => ({
+    prop !== "intensity" &&
+    prop !== "index",
+})(({ theme, on, color, power, intensity, index }) => ({
   width: "90%",
   height: "90%",
   borderRadius: "50% 50% 50% 50% / 50% 50% 50% 50%",
+  background: `radial-gradient(${color}, dark${color})`,
   backgroundColor: color,
   opacity: !power ? 0.5 : on ? 1 : 0.8,
+  zIndex: index,
   boxShadow: on
     ? `0px 0px ${intensity}px ${intensity / 2}px ${color}`
     : `0px 0px 0px 0px ${color}`,
@@ -25,28 +28,53 @@ const Light = styled("div", {
   )}`,
 }));
 
-const colors = ["red", "cyan", "yellow", "lime", "fuchsia"];
+const colors = ["red", "cyan", "orange", "green", "magenta"];
 
-const Bulb = ({ power, time, position, color, handleColor, id, intensity }) => {
+const Bulb = ({
+  power,
+  time,
+  position,
+  color,
+  handleColor,
+  id,
+  intensity,
+  program,
+  quantity,
+}) => {
   const [on, setOn] = useState(false);
   const [colorIndex, setColorIndex] = useState(0);
 
   useEffect(() => {
     let lightInterval;
-    if (power && position % 2) {
-      setOn((p) => !p);
-      lightInterval = setInterval(() => setOn((p) => !p), time);
-    } else if (power && !(position % 2)) {
-      setTimeout(() => {
+    if (program === "alternate") {
+      if (power && position % 2) {
         setOn((p) => !p);
-        return (lightInterval = setInterval(() => setOn((p) => !p), time));
-      }, time);
+        lightInterval = setInterval(() => setOn((p) => !p), time);
+      } else if (power && !(position % 2)) {
+        setTimeout(() => {
+          setOn((p) => !p);
+          return (lightInterval = setInterval(() => setOn((p) => !p), time));
+        }, time);
+      } else {
+        setOn(false);
+      }
+      return () => clearInterval(lightInterval);
     } else {
-      setOn(false);
+      if (power) {
+        setTimeout(() => {
+          setOn(true);
+          setTimeout(() => setOn(false), time / 10);
+          lightInterval = setInterval(() => {
+            setOn(true);
+            setTimeout(() => setOn(false), time / 10);
+          }, (time / 10) * quantity);
+        }, (time / 10) * id);
+      } else {
+        setOn(false);
+      }
+      return () => clearInterval(lightInterval);
     }
-
-    return () => clearInterval(lightInterval);
-  }, [power, time]);
+  }, [power, time, program]);
 
   useEffect(() => {
     handleColor(id, colors[colorIndex]);
@@ -54,7 +82,11 @@ const Bulb = ({ power, time, position, color, handleColor, id, intensity }) => {
 
   return (
     <Box
-      sx={{ width: "7vw", height: "7vw", m: 3 }}
+      sx={{
+        width: "7vw",
+        height: "7vw",
+        m: 3,
+      }}
       onClick={() => setColorIndex((p) => (p === 4 ? 0 : p + 1))}
     >
       <Tooltip
@@ -64,7 +96,13 @@ const Bulb = ({ power, time, position, color, handleColor, id, intensity }) => {
           </Typography>
         }
       >
-        <Light on={on} color={color} power={power} intensity={intensity} />
+        <Light
+          on={on}
+          color={color}
+          power={power}
+          intensity={intensity}
+          index={id}
+        />
       </Tooltip>
     </Box>
   );

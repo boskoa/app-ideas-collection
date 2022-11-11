@@ -35,6 +35,7 @@ const AppsMenu = () => {
     <Stack
       direction="row"
       justifyContent="center"
+      alignItems="center"
       flexGrow={1}
       overflow="hidden"
     >
