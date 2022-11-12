@@ -46,33 +46,47 @@ const Bulb = ({
 
   useEffect(() => {
     let lightInterval;
+    let timeoutInterval;
+    let auxiliar1;
+    let auxiliar2;
     if (program === "alternate") {
       if (power && position % 2) {
         setOn((p) => !p);
         lightInterval = setInterval(() => setOn((p) => !p), time);
       } else if (power && !(position % 2)) {
-        setTimeout(() => {
+        timeoutInterval = setTimeout(() => {
           setOn((p) => !p);
-          return (lightInterval = setInterval(() => setOn((p) => !p), time));
+          lightInterval = setInterval(() => setOn((p) => !p), time);
         }, time);
       } else {
         setOn(false);
       }
-      return () => clearInterval(lightInterval);
+      return () => {
+        setOn(false);
+        clearTimeout(timeoutInterval);
+        clearInterval(lightInterval);
+      };
     } else {
       if (power) {
-        setTimeout(() => {
+        timeoutInterval = setTimeout(() => {
           setOn(true);
-          setTimeout(() => setOn(false), time / 10);
+          auxiliar1 = setTimeout(() => setOn(false), time / 10);
           lightInterval = setInterval(() => {
             setOn(true);
-            setTimeout(() => setOn(false), time / 10);
+            auxiliar2 = setTimeout(() => setOn(false), time / 10);
           }, (time / 10) * quantity);
         }, (time / 10) * id);
       } else {
         setOn(false);
       }
-      return () => clearInterval(lightInterval);
+
+      return () => {
+        setOn(false);
+        clearTimeout(timeoutInterval);
+        clearTimeout(auxiliar1);
+        clearTimeout(auxiliar2);
+        clearInterval(lightInterval);
+      };
     }
   }, [power, time, program]);
 

@@ -1,0 +1,49 @@
+ul {
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 5px;
+}
+
+li {
+  list-style-type: none;
+}
+
+li>*:hover {
+  cursor: pointer;
+}
+
+li:focus {
+  color: red;
+}
+
+#container {
+  margin-top: 1rem;
+}
+
+#main {
+  display: flex;
+  flex-direction: row;
+}
+
+#info {
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 5px;
+  flex-grow: 1;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 1s, opacity 1s;
+}
+
+#info.none {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.light {
+  background-color: rgb(135, 155, 154);
+}
+
+.dark {
+  background-color: cadetblue;
+}

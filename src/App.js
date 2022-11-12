@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import Home from "./components/Home";
 import MyAppBar from "./components/MyAppBar";
 import Provider from "./Provider";
+import CauseEffect from "./projects/beginner/CauseEffect";
 
 const Bin2Dec = lazy(() => import("./projects/beginner/Bin2Dec"));
 const BorderRadiusPreviewer = lazy(() =>
@@ -50,7 +51,12 @@ const App = () => {
             </Suspense>
           }
         />
+        <Route path="/causeeffect" element={<CauseEffect />} />
         <Route path="/" element={<Home />} />
+        <Route
+          path="*"
+          element={<div style={{ margin: 5 }}>Page not found</div>}
+        />
       </Routes>
     </Provider>
   );

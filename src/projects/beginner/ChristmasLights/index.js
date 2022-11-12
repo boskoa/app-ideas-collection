@@ -37,7 +37,6 @@ const ChristmasLights = () => {
   const [intensity, setIntensity] = useState(30);
   const [program, setProgram] = useState("alternate");
   const lightsOn = useTheme().palette.mode === "light";
-  console.log(lightsOn);
 
   const app = apps[3];
 
