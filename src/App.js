@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import MyAppBar from "./components/MyAppBar";
 import Provider from "./Provider";
 import CauseEffect from "./projects/beginner/CauseEffect";
+import JSON2CSV from "./projects/beginner/JSON2CSV";
 
 const Bin2Dec = lazy(() => import("./projects/beginner/Bin2Dec"));
 const BorderRadiusPreviewer = lazy(() =>
@@ -52,6 +53,7 @@ const App = () => {
           }
         />
         <Route path="/causeeffect" element={<CauseEffect />} />
+        <Route path="/json2csv" element={<JSON2CSV />} />
         <Route path="/" element={<Home />} />
         <Route
           path="*"

@@ -34,4 +34,11 @@ export const apps = [
     id: 4,
     level: "beginner",
   },
+  {
+    name: "JSON2CSV",
+    description:
+      "The objective of JSON2CSV is to help bridge the gap between JSON and CSV by converting JSON to CSV to make it easier to review data in a spreadsheet. It allows the user to paste JSON into a text box to generate its equivalent CSV.",
+    id: 5,
+    level: "beginner",
+  },
 ];

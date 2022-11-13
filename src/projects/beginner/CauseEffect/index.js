@@ -10,6 +10,7 @@ const CauseEffect = () => {
   const [selected, setSelected] = useState(null);
   const dark = useTheme().palette.mode === "dark";
   const ref = useRef();
+  const containerRef = useRef();
   const app = apps[4];
 
   const fetchPersons = async () => {
@@ -25,23 +26,22 @@ const CauseEffect = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        ref.current &&
-        !ref.current.contains(event.target) &&
-        !event.target.className.includes("PrivateSwitchBase-input")
-      ) {
+      if (ref.current && !ref.current.contains(event.target)) {
         setSelected(null);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    containerRef.current.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      containerRef.current?.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
     };
   }, [ref]);
 
   return (
-    <div id="container">
+    <div id="container" ref={containerRef}>
       <Typography align="center" variant="h4" gutterBottom>
         {app.name}
       </Typography>
