@@ -25,16 +25,25 @@ const useJ2C = () => {
     }
 
     let csvArray = [];
+    let properties = [];
+    let endResult = [];
 
     for (const property in jsObjects[0]) {
-      csvArray.push(property);
+      properties.push(property);
     }
+    csvArray.push(properties);
 
     for (const el of jsObjects) {
-      csvArray = csvArray.concat(Object.values(el));
+      csvArray.push(Object.values(el));
     }
 
-    setCsv(csvArray.join(","));
+    for (let el of csvArray) {
+      el = el.join(",");
+      el = el.replace(/\n/g, " ");
+      endResult.push(el);
+    }
+
+    setCsv(endResult.join("\n"));
   };
 
   useEffect(() => {
@@ -50,6 +59,7 @@ const useJ2C = () => {
     csv,
     setCsv,
     error,
+    setError,
     clicked,
     setClicked,
   };

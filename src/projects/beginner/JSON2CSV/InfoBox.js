@@ -8,9 +8,12 @@ const InfoBox = ({ text, color, on }) => {
         left: 15,
         bottom: 10,
         zIndex: 2,
-        backgroundColor: color,
+        color: color,
         p: 2,
+        border: 1,
+        borderColor: color,
         borderRadius: "10px",
+        boxShadow: 5,
       }}
       direction="right"
       in={on}
