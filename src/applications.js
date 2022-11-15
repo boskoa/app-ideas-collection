@@ -41,4 +41,11 @@ export const apps = [
     id: 5,
     level: "beginner",
   },
+  {
+    name: "CSV2JSON",
+    description:
+      "In the JSON2CSV application you translated JSON to a comma separated value (CSV) format. The objective of CSV2JSON is to reverse that process by converting a block of CSV text to JSON.",
+    id: 6,
+    level: "beginner",
+  },
 ];
