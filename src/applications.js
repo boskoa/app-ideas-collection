@@ -48,4 +48,11 @@ export const apps = [
     id: 6,
     level: "beginner",
   },
+  {
+    name: "My calendar",
+    description:
+      "Build a calendar application to organize you daily life. Add functionality to add events and reminder. Style your own calendar according to your requirement.",
+    id: 7,
+    level: "advanced",
+  },
 ];

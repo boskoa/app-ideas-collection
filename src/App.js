@@ -3,9 +3,6 @@ import { lazy, Suspense } from "react";
 import Home from "./components/Home";
 import MyAppBar from "./components/MyAppBar";
 import Provider from "./Provider";
-import CauseEffect from "./projects/beginner/CauseEffect";
-import JSON2CSV from "./projects/beginner/JSON2CSV";
-import CSV2JSON from "./projects/beginner/CSV2JSON";
 
 const Bin2Dec = lazy(() => import("./projects/beginner/Bin2Dec"));
 const BorderRadiusPreviewer = lazy(() =>
@@ -15,6 +12,10 @@ const Calculator = lazy(() => import("./projects/beginner/Calculator"));
 const ChristmasLights = lazy(() =>
   import("./projects/beginner/ChristmasLights")
 );
+const CauseEffect = lazy(() => import("./projects/beginner/CauseEffect"));
+const JSON2CSV = lazy(() => import("./projects/beginner/JSON2CSV"));
+const CSV2JSON = lazy(() => import("./projects/beginner/CSV2JSON"));
+const MyCalendar = lazy(() => import("./projects/beginner/MyCalendar"));
 
 const App = () => {
   return (
@@ -53,9 +54,38 @@ const App = () => {
             </Suspense>
           }
         />
-        <Route path="/causeeffect" element={<CauseEffect />} />
-        <Route path="/json2csv" element={<JSON2CSV />} />
-        <Route path="/csv2json" element={<CSV2JSON />} />
+        <Route
+          path="/causeeffect"
+          element={
+            <Suspense fallback="Loading...">
+              <CauseEffect />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/json2csv"
+          element={
+            <Suspense fallback="Loading...">
+              <JSON2CSV />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/csv2json"
+          element={
+            <Suspense fallback="Loading...">
+              <CSV2JSON />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/my-calendar"
+          element={
+            <Suspense fallback="Loading...">
+              <MyCalendar />
+            </Suspense>
+          }
+        />
         <Route path="/" element={<Home />} />
         <Route
           path="*"
