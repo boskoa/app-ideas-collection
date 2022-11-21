@@ -1,10 +1,11 @@
 import { useState } from "react";
 import AddNewEvent from "./features/events/AddNewEvent";
+import Alarm from "./features/events/Alarm";
 import MonthInput from "./MonthInput";
 import YearInput from "./YearInput";
 
 const CalendarContainer = ({
-  dates,
+  sortedDates,
   setDetailed,
   setDay,
   year,
@@ -17,32 +18,6 @@ const CalendarContainer = ({
   const today = new Date()
     .toLocaleString("sv", { timeZone: "Europe/Paris" })
     .slice(0, 10);
-  let datesCopy = dates.concat();
-  let sortedDates = [];
-  const weekdays = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
-
-  let i = 0;
-  while (datesCopy.length) {
-    let week = [];
-    for (const day of weekdays) {
-      if (dates[i]?.toLocaleString("en-US", { weekday: "long" }) === day) {
-        const newDay = datesCopy.shift();
-        week.push({ day: i + 1, date: newDay, active: true });
-        i++;
-      } else {
-        week.push({ day: null, date: null, active: false });
-      }
-    }
-    sortedDates.push(week);
-  }
 
   return (
     <div>
@@ -74,8 +49,11 @@ const CalendarContainer = ({
                       d.date
                         ?.toLocaleString("sv", { timeZone: "Europe/Paris" })
                         .slice(0, 10) === today && "today"
-                    } ${selected === d.day && "selected-date"}`}
+                    } ${selected === d.day && "selected-date"} ${
+                      d.events && "with-events"
+                    }`}
                     onClick={() => {
+                      console.log("SORTED", sortedDates);
                       setDay(d.day);
                       setSelected(d.day);
                       d.active && setDetailed(true);
@@ -90,6 +68,7 @@ const CalendarContainer = ({
         </tbody>
       </table>
       <AddNewEvent year={year} month={month} day={day} />
+      <Alarm />
     </div>
   );
 };

@@ -10,8 +10,6 @@ const AddNewEvent = ({ year, month, day }) => {
   const id = useSelector(selectEventIds).length;
   const dispatch = useDispatch();
 
-  console.log("IDS", id, day);
-
   const handleNewEvent = () => {
     let selectedDate = null;
     if (reminder) {
@@ -19,22 +17,32 @@ const AddNewEvent = ({ year, month, day }) => {
       selectedDate.setDate(selectedDate.getDate() - reminder);
     }
     const date = new Date(year, month, day, 12).toString();
-    console.log("RIMAJNDER", year, month, day, date);
     dispatch(
       addEvent({
-        id,
+        id: id + title,
         date,
-        reminder: selectedDate.toString(),
+        reminder: selectedDate ? selectedDate.toString() : selectedDate,
         title,
         content,
       })
     );
   };
 
+  const handleClear = () => {
+    setTitle("");
+    setContent("");
+    setReminder(0);
+  };
+
   return (
     <div className="new-event-button">
       <button onClick={() => setShow(!show)}>Add new event</button>
       <div className={`new-event ${show && "show-new-event"}`}>
+        <button
+          id="clear-button"
+          className="fa fa-trash"
+          onClick={handleClear}
+        />
         <p>New event for {new Date(year, month, day, 12).toDateString()}</p>
         <div className="new-input">
           <label htmlFor="title">Title</label>
@@ -60,6 +68,8 @@ const AddNewEvent = ({ year, month, day }) => {
             id="reminder"
             type="number"
             name="reminder"
+            min="0"
+            max="370"
             value={reminder}
             onChange={(e) => setReminder(Number(e.target.value))}
           />

@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import CalendarContainer from "./CalendarContainer";
-import { selectAllEvents, setAllEvents } from "./features/events/eventsSlice";
+import {
+  selectAllEvents,
+  selectDaysOfEvents,
+  setAllEvents,
+} from "./features/events/eventsSlice";
 import SingleDayEvents from "./features/events/SingleDayEvents";
 
 const Container = () => {
@@ -15,6 +19,7 @@ const Container = () => {
 
   const dispatch = useDispatch();
   const events = useSelector(selectAllEvents);
+  const withEvents = useSelector(selectDaysOfEvents);
 
   useEffect(() => {
     const locStorage = window.localStorage.getItem("calendarAppEvents");
@@ -33,7 +38,6 @@ const Container = () => {
       allDates.push(new Date(year, month, i));
     }
     setDays(allDates);
-    console.log("EVENTS", events);
   }, [daysInMonth, year, month]);
 
   useEffect(() => {
@@ -41,6 +45,37 @@ const Container = () => {
       window.localStorage.setItem("calendarAppEvents", JSON.stringify(events));
     }
   }, [events]);
+
+  const dates = useMemo(() => {
+    let datesCopy = days.concat();
+    let sortedDates = [];
+    const weekdays = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+
+    let i = 0;
+    while (datesCopy.length) {
+      let week = [];
+      for (const day of weekdays) {
+        if (days[i]?.toLocaleString("en-US", { weekday: "long" }) === day) {
+          const newDay = datesCopy.shift();
+          const events = withEvents.includes(i + 1) ? true : false;
+          week.push({ day: i + 1, date: newDay, active: true, events });
+          i++;
+        } else {
+          week.push({ day: null, date: null, active: false });
+        }
+      }
+      sortedDates.push(week);
+    }
+    return sortedDates;
+  }, [month, days]);
 
   if (!days.length) {
     return <div>Loading...</div>;
@@ -50,7 +85,7 @@ const Container = () => {
     <div id="main-container">
       {days.length && (
         <CalendarContainer
-          dates={days}
+          sortedDates={dates}
           setDetailed={setDetailed}
           setDay={setDay}
           year={year}

@@ -22,6 +22,7 @@ const eventsSlice = createSlice({
       eventsAdapter.addOne(state, action.payload);
     },
     removeEvent: (state, action) => {
+      console.log("SLAJSER", state, action.payload);
       eventsAdapter.removeOne(state, action.payload);
     },
     updateEvent: (state, action) => {
@@ -43,6 +44,18 @@ export const selectEventsByDay = createSelector(
       const iso = new Date(e.date);
       return iso.toISOString().slice(0, 10) === day.toISOString().slice(0, 10);
     })
+);
+
+export const selectEventsByActiveReminders = createSelector(
+  selectAllEvents,
+  (events) => {
+    const today = new Date();
+    return events.filter((e) => e.reminder && new Date(e.reminder) <= today);
+  }
+);
+
+export const selectDaysOfEvents = createSelector(selectAllEvents, (events) =>
+  events.map((e) => new Date(e.date).getDate())
 );
 
 export const { setAllEvents, addEvent, removeEvent, updateEvent } =
