@@ -75,7 +75,7 @@ const Container = () => {
       sortedDates.push(week);
     }
     return sortedDates;
-  }, [month, days]);
+  }, [month, days, events]);
 
   if (!days.length) {
     return <div>Loading...</div>;

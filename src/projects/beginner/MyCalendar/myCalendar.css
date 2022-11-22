@@ -135,6 +135,17 @@ td {
   border-radius: 3px;
 }
 
+#update-button {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  border: none;
+  cursor: pointer;
+  background-color: rgb(117, 85, 192);
+  color: white;
+  border-radius: 3px;
+}
+
 #inputs {
   display: flex;
   justify-content: space-between;

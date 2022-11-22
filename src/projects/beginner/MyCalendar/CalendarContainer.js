@@ -53,7 +53,6 @@ const CalendarContainer = ({
                       d.events && "with-events"
                     }`}
                     onClick={() => {
-                      console.log("SORTED", sortedDates);
                       setDay(d.day);
                       setSelected(d.day);
                       d.active && setDetailed(true);

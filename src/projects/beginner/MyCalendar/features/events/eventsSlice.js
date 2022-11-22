@@ -18,11 +18,9 @@ const eventsSlice = createSlice({
       eventsAdapter.upsertMany(state, action.payload);
     },
     addEvent: (state, action) => {
-      console.log("SLAJSER", state, action.payload);
       eventsAdapter.addOne(state, action.payload);
     },
     removeEvent: (state, action) => {
-      console.log("SLAJSER", state, action.payload);
       eventsAdapter.removeOne(state, action.payload);
     },
     updateEvent: (state, action) => {

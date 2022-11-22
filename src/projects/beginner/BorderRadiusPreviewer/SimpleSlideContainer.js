@@ -39,7 +39,6 @@ const SimpleSlideContainer = ({
           width: "90%",
           height: "90%",
           position: "relative",
-          border: "1px dotted black",
         }}
       >
         <SimpleSliderA setA={setUlu} setB={setUru} />
