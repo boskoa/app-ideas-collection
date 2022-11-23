@@ -17,9 +17,12 @@ const MyToggleButtonGroup = styled(ToggleButtonGroup, {
     : alpha(theme.palette.success.light, 0.65),
 }));
 
-const MyButton = styled(ToggleButton)(() => ({
+const MyButton = styled(ToggleButton, {
+  shouldForwardProp: (prop) => prop !== "dark",
+})(({ dark }) => ({
   width: "6rem",
   textTransform: "none",
+  color: !dark && "lime",
 }));
 
 const AppsMenu = () => {
@@ -47,17 +50,17 @@ const AppsMenu = () => {
         onChange={handleFilter}
         dark={dark}
       >
-        <MyButton color="primary" value="beginner">
+        <MyButton color="primary" value="beginner" dark={dark}>
           <Typography variant="body2" overflow="hidden">
             Beginner
           </Typography>
         </MyButton>
-        <MyButton value="intermediate">
+        <MyButton value="intermediate" dark={dark}>
           <Typography variant="body2" overflow="hidden">
             Intermediate
           </Typography>
         </MyButton>
-        <MyButton color="error" value="advanced">
+        <MyButton color="error" value="advanced" dark={dark}>
           <Typography variant="body2" overflow="hidden">
             Advanced
           </Typography>
