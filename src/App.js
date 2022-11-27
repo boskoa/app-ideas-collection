@@ -16,6 +16,9 @@ const CauseEffect = lazy(() => import("./projects/beginner/CauseEffect"));
 const JSON2CSV = lazy(() => import("./projects/beginner/JSON2CSV"));
 const CSV2JSON = lazy(() => import("./projects/beginner/CSV2JSON"));
 const MyCalendar = lazy(() => import("./projects/advanced/MyCalendar"));
+const BookFinderApp = lazy(() =>
+  import("./projects/intermediate/BookFinderApp")
+);
 
 const App = () => {
   return (
@@ -83,6 +86,14 @@ const App = () => {
           element={
             <Suspense fallback="Loading...">
               <MyCalendar />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/book-finder-app"
+          element={
+            <Suspense fallback="Loading...">
+              <BookFinderApp />
             </Suspense>
           }
         />

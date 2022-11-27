@@ -55,4 +55,11 @@ export const apps = [
     id: 7,
     level: "advanced",
   },
+  {
+    name: "Book Finder App",
+    description:
+      "Create an application that will allow users to search for books by entering a query (Title, Author, etc). Display the resulting books in a list on the page with all the corresponding data.",
+    id: 8,
+    level: "intermediate",
+  },
 ];
