@@ -18,7 +18,6 @@ const BookFinderApp = () => {
 `);
     setBooks(response.data.items);
     setLoading(false);
-    console.log("FETCHING", setBooks, response.data, books);
   };
 
   useEffect(() => {
