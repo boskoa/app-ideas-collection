@@ -19,6 +19,9 @@ const MyCalendar = lazy(() => import("./projects/advanced/MyCalendar"));
 const BookFinderApp = lazy(() =>
   import("./projects/intermediate/BookFinderApp")
 );
+const CurrencyConverter = lazy(() =>
+  import("./projects/intermediate/CurrencyConverter")
+);
 
 const App = () => {
   return (
@@ -94,6 +97,14 @@ const App = () => {
           element={
             <Suspense fallback="Loading...">
               <BookFinderApp />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/currency-converter"
+          element={
+            <Suspense fallback="Loading...">
+              <CurrencyConverter />
             </Suspense>
           }
         />

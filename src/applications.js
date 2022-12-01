@@ -62,4 +62,11 @@ export const apps = [
     id: 8,
     level: "intermediate",
   },
+  {
+    name: "Currency Converter",
+    description:
+      "A currency converter is used to convert an amount in one currency to its corresponding value in another currency using their current exchange rate.",
+    id: 9,
+    level: "intermediate",
+  },
 ];

@@ -24,3 +24,5 @@ yarn-error.log*
 .eslintrc.js
 .prettierignore
 .eslintignore
+
+./src/keys.js
