@@ -1,0 +1,2 @@
+ul{border-radius:5px;margin:2rem;padding:1rem}li{list-style-type:none;transition:color .3s}li>:hover{cursor:pointer}li:focus{color:red}#container{height:85vh;margin-top:1rem}#main{display:flex;flex-direction:row}#info{border-radius:5px;flex-grow:1;margin:2rem;opacity:1;padding:1rem;transition:visibility 1s,opacity 1s;visibility:visible}#info.none{opacity:0;visibility:hidden}.light{background-color:#879b9a}.dark{background-color:#5f9ea0}
+/*# sourceMappingURL=627.b78831b8.chunk.css.map*/
